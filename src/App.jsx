@@ -4,6 +4,9 @@ function App() {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const urlApiCloudflare = "https://aws-sdk-test.vercel.app"
 
   const handleChange = (e) => {
     setFile(e.target.files[0]);
@@ -21,19 +24,21 @@ function App() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("https://backend-cloud.vercel.app/upload", {
+      const response = await fetch(`${urlApiCloudflare}/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
+        setSuccess(true);
         setMessage(data.message);
+        // setMessage("Data berhasil di upload");
       } else {
-        setMessage("Gagal mengunggah file.");
+        setMessage(data.message);
       }
     } catch (error) {
-      setMessage("Terjadi kesalahan saat mengunggah file.");
+      setMessage(error.message);
     } finally {
       setLoading(false);
     }
@@ -52,6 +57,7 @@ function App() {
             {loading ? "Mengunggah..." : "Upload"}
           </button>
         </div>
+        {success && <a href={message} >Klik here</a>}
         {message && <div className="message">{message}</div>}
       </form>
     </div>
