@@ -7,8 +7,8 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [nama, setNama] = useState("");
 
-  // const urlApiCloudflare = "https://aws-sdk-test.vercel.app"
-  const urlApiCloudflare = "http://localhost:3000"
+  const urlApiCloudflare = "https://aws-sdk-test.vercel.app"
+  // const urlApiCloudflare = "http://localhost:3000"
 
   const handleChange = (e) => {
     setFile(e.target.files[0]);
