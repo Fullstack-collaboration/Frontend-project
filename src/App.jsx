@@ -5,8 +5,10 @@ function App() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [nama, setNama] = useState("");
 
-  const urlApiCloudflare = "https://aws-sdk-test.vercel.app"
+  // const urlApiCloudflare = "https://aws-sdk-test.vercel.app"
+  const urlApiCloudflare = "http://localhost:3000"
 
   const handleChange = (e) => {
     setFile(e.target.files[0]);
@@ -22,6 +24,7 @@ function App() {
     setLoading(true);
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("nama", nama);
 
     try {
       const response = await fetch(`${urlApiCloudflare}/upload`, {
@@ -51,6 +54,13 @@ function App() {
         <div className="form-group">
           <label htmlFor="file">Pilih file:</label>
           <input type="file" name="file" onChange={handleChange} />
+        </div>
+        <div>
+          <img src={message} alt="preview" width={300} />
+        </div>
+        <div className="form-group">
+            <label htmlFor="nama">Nama</label>
+          <input type="text" name="nama" value={nama} onChange={e => setNama(e.target.value)} />
         </div>
         <div className="form-group">
           <button type="submit" disabled={loading}>
